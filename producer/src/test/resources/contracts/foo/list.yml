@@ -1,0 +1,13 @@
+description: Represents a successful scenario of getting a list of foo
+request:
+  method: GET
+  url: /foo
+  headers:
+    Accept: application/json
+response:
+  status: 200
+  body:
+    - bar: bar
+    - bar: baz
+  headers:
+    Content-Type: application/json
