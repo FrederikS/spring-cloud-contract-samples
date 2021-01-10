@@ -57,6 +57,8 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
+                    <testMode>EXPLICIT</testMode>
+                    <baseClassForTests>codes.fdk.sample.contract.producer.BaseProducerApplicationTest</baseClassForTests>
                 </configuration>
             </plugin>
             <plugin>
