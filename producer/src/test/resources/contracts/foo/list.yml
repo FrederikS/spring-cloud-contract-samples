@@ -6,8 +6,11 @@ request:
     Accept: application/json
 response:
   status: 200
-  body:
-    - bar: bar
-    - bar: baz
+  bodyFromFile: response.json
   headers:
     Content-Type: application/json
+  matchers:
+    body:
+      - path: $[*].bar
+        type: by_regex
+        predefined: non_blank
