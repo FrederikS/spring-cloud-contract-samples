@@ -1,0 +1,10 @@
+description: Request for application/xml return 404
+request:
+  method: GET
+  url: /foo
+  headers:
+    Accept: application/xml
+response:
+  status: 404
+  headers:
+    Content-Type: application/json
