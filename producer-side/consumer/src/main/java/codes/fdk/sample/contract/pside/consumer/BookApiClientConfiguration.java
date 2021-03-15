@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import static codes.fdk.sample.contract.pside.consumer.ApiClientConfiguration.ApiClientProperties;
+import static codes.fdk.sample.contract.pside.consumer.BookApiClientConfiguration.ApiClientProperties;
 
 @Configuration
 @EnableConfigurationProperties(ApiClientProperties.class)
-public class ApiClientConfiguration {
+public class BookApiClientConfiguration {
 
     @Bean
     public WebClient client(WebClient.Builder webClientBuilder, ApiClientProperties config) {
