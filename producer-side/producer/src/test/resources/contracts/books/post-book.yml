@@ -1,0 +1,69 @@
+---
+name: post-book-with-valid-input
+description: Adding a book
+request:
+  method: POST
+  url: /books
+  headers:
+    Content-Type: application/json
+  body:
+    title: The Fellowship of the Ring
+    description: Lord of the rings, first part.
+  matchers:
+    body:
+      - path: $.title
+        type: by_regex
+        predefined: non_blank
+      - path: $.description
+        type: by_regex
+        predefined: non_blank
+response:
+  status: 201
+  headers:
+    Content-Type: application/json
+    Location: /books/29c114c1-4c26-4180-bd4d-6973767b3c61
+  body:
+    isbn: 29c114c1-4c26-4180-bd4d-6973767b3c61
+    title: "{{{ jsonpath this '$.title' }}}"
+    description: "{{{ jsonpath this '$.description' }}}"
+  matchers:
+    body:
+      - path: $.isbn
+        type: by_regex
+        predefined: uuid
+    headers:
+      - key: Location
+        regex: ^/books/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+---
+name: post-book-without-title
+description: Adding a book without title should return 400
+request:
+  method: POST
+  url: /books
+  headers:
+    Content-Type: application/json
+  body:
+    title:
+  matchers:
+    body:
+      - path: $.title
+        type: by_null
+response:
+  status: 400
+---
+name: post-book-with-blank-title
+description: Adding a book with blank title should return 400
+request:
+  method: POST
+  url: /books
+  headers:
+    Content-Type: application/json
+  body:
+    title: "   "
+  matchers:
+    body:
+      - path: $.title
+        type: by_regex
+        value: ^\s*$
+response:
+  status: 400

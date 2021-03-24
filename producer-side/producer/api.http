@@ -1,2 +1,13 @@
-GET http://localhost:8080/foo
-Accept: application/json
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "title",
+  "description": "description"
+}
+
+> {% client.global.set("isbn", response.body.isbn) %}
+
+###
+
+GET http://localhost:8080/books/{{isbn}}
