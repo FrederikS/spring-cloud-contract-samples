@@ -41,6 +41,11 @@
             <artifactId>spring-cloud-starter-contract-verifier</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-web-test-client</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -52,7 +57,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
-                    <testMode>EXPLICIT</testMode>
+                    <testMode>WEBTESTCLIENT</testMode>
                     <baseClassForTests>codes.fdk.sample.contract.pside.producer.BaseProducerApplicationTest</baseClassForTests>
                 </configuration>
             </plugin>
