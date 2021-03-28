@@ -58,7 +58,7 @@
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
                     <testMode>WEBTESTCLIENT</testMode>
-                    <baseClassForTests>codes.fdk.sample.contract.pside.producer.BaseProducerApplicationTest</baseClassForTests>
+                    <baseClassForTests>codes.fdk.sample.contract.pside.producer.BaseProducerTest</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>

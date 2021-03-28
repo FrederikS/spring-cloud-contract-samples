@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-class BaseProducerApplicationTest {
+class BaseProducerTest {
 
     @Autowired
     private ApplicationContext context;
