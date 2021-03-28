@@ -1,3 +1,5 @@
+server:
+  port: 8081
 web:
   client:
-    base-url: http://localhost:${stubrunner.runningstubs.producer.port:8081}
+    base-url: http://localhost:${stubrunner.runningstubs.producer.port:8080}

@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  producer-api-stub:
+    image: springcloud/spring-cloud-contract-stub-runner:3.0.2
+    environment:
+      STUBRUNNER_IDS: "codes.fdk.sample.contract.pside:producer:+:stubs:8080"
+      STUBRUNNER_STUBS_MODE: LOCAL
+    ports:
+      - "8080:8080"
+    volumes:
+      - ~/.m2:/root/.m2

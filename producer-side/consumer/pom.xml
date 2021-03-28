@@ -41,4 +41,19 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <contractsMode>LOCAL</contractsMode>
+                    <stubs>codes.fdk.sample.contract.pside:producer:${project.version}:stubs:8080</stubs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
