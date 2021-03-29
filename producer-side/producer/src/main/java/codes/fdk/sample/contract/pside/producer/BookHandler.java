@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,11 +44,24 @@ class BookHandler {
 
     @NonNull
     Mono<ServerResponse> findByIsbn(ServerRequest request) {
-        final UUID isbn = UUID.fromString(request.pathVariable("isbn"));
+        String isbnFromPath = request.pathVariable("isbn");
+        final UUID isbn = tryToParseUUID(isbnFromPath).orElseThrow(() -> new ResponseStatusException(
+                BAD_REQUEST,
+                "Given isbn is invalid."
+        ));
 
         return bookRepository.findByIsbn(isbn)
                              .map(BookHandler::toDto)
-                             .flatMap(bookResponse -> ServerResponse.ok().bodyValue(bookResponse));
+                             .flatMap(bookResponse -> ServerResponse.ok().bodyValue(bookResponse))
+                             .switchIfEmpty(ServerResponse.notFound().build());
+    }
+
+    private static Optional<UUID> tryToParseUUID(String isbn) {
+        try {
+            return Optional.of(UUID.fromString(isbn));
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
+        }
     }
 
     private <T> T validate(T input) {

@@ -44,6 +44,7 @@ request:
     Content-Type: application/json
   body:
     title:
+    description: the book without title
   matchers:
     body:
       - path: $.title

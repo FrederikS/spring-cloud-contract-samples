@@ -1,0 +1,46 @@
+name: get-book-by-isbn
+description: Finding a book by ISBN returns 200
+request:
+  method: GET
+  url: /books/29c114c1-4c26-4180-bd4d-6973767b3c61
+response:
+  status: 200
+  headers:
+    Content-Type: application/json
+  body:
+    isbn: "{{{ request.path.[1] }}}"
+    title: The Fellowship of the Ring
+    description: Lord of the rings, first part.
+  matchers:
+    body:
+      - path: $.isbn
+        type: by_regex
+        predefined: uuid
+      - path: $.title
+        type: by_regex
+        predefined: non_blank
+      - path: $.description
+        type: by_regex
+        predefined: non_blank
+---
+name: get-book-by-non-existent-isbn
+description: Finding a book by non-existent ISBN returns 404
+request:
+  method: GET
+  url: /books/954cf051-419e-4d24-985a-f2f5ec0c04ad
+  matchers:
+    url:
+      regex: ^/books/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+response:
+  status: 404
+---
+name: get-book-by-invalid-isbn
+description: Finding a book by an invalid ISBN returns 400
+request:
+  method: GET
+  url: /books/invalid-uuid
+  matchers:
+    url:
+      regex: ^/books/(?![a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}).*$
+response:
+  status: 400
