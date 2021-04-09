@@ -21,12 +21,11 @@ class BookServiceIntegrationTest {
 
     @Test
     void addBookWithValidInputShouldReturnBookWithIsbnAssignedAndInputValues() {
-
         StepVerifier.create(bookService.addBook(new CreateBookCommand("title", "description")))
                     .assertNext(book -> assertAll(
-                            () -> assertThat(book.isbn).isNotNull(),
-                            () -> assertThat(book.title).isEqualTo("title"),
-                            () -> assertThat(book.description).isEqualTo("description")
+                            () -> assertThat(book.isbn()).isNotNull(),
+                            () -> assertThat(book.title()).isEqualTo("title"),
+                            () -> assertThat(book.description()).isEqualTo("description")
                     ))
                     .verifyComplete();
     }
@@ -52,7 +51,7 @@ class BookServiceIntegrationTest {
     @Test
     void findBookByIsbnShouldReturnBookForExistentISBN() {
         StepVerifier.create(bookService.addBook(new CreateBookCommand("title", "description"))
-                                       .flatMap(book -> bookService.findBookByIsbn(book.isbn)))
+                                       .flatMap(book -> bookService.findBookByIsbn(book.isbn())))
                     .expectNextCount(1)
                     .verifyComplete();
     }

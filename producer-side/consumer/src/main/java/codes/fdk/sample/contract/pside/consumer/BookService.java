@@ -29,11 +29,11 @@ public class BookService {
     }
 
     private static PostBookRequest toRequest(CreateBookCommand command) {
-        return new PostBookRequest(command.title, command.description);
+        return new PostBookRequest(command.title(), command.description());
     }
 
     private static Book toDomainModel(BookResponse response) {
-        return new Book(response.isbn, response.title, response.description);
+        return new Book(response.isbn(), response.title(), response.description());
     }
 
 }

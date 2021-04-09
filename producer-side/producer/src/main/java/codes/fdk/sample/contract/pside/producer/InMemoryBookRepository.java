@@ -17,7 +17,7 @@ public class InMemoryBookRepository implements BookRepository {
     public Mono<BookEntity> save(BookEntity entity) {
         return Mono.fromCallable(() -> {
             final BookEntity entityWithIsbn = setIsbnIfNotPresent(entity);
-            return STORE.compute(entityWithIsbn.isbn, (k, v) -> entityWithIsbn);
+            return STORE.compute(entityWithIsbn.isbn(), (k, v) -> entityWithIsbn);
         });
     }
 
@@ -27,9 +27,9 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     private BookEntity setIsbnIfNotPresent(BookEntity entity) {
-        if (Objects.isNull(entity.isbn)) {
+        if (Objects.isNull(entity.isbn())) {
             final UUID isbn = UUID.randomUUID();
-            return new BookEntity(isbn, entity.title, entity.description);
+            return new BookEntity(isbn, entity.title(), entity.description());
         }
 
         return entity;

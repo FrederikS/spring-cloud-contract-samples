@@ -35,10 +35,10 @@ class BookHandler {
         return request.bodyToMono(PostBookRequest.class)
                       .switchIfEmpty(Mono.error(new ResponseStatusException(BAD_REQUEST, "No input provided.")))
                       .map(this::validate)
-                      .map(bookRequest -> new BookEntity(null, bookRequest.title, bookRequest.description))
+                      .map(bookRequest -> new BookEntity(null, bookRequest.title(), bookRequest.description()))
                       .flatMap(bookRepository::save)
                       .map(BookHandler::toDto)
-                      .flatMap(book -> ServerResponse.created(fromPath("/books/{isbn}").build(book.isbn))
+                      .flatMap(book -> ServerResponse.created(fromPath("/books/{isbn}").build(book.isbn()))
                                                      .bodyValue(book));
     }
 
@@ -78,7 +78,7 @@ class BookHandler {
     }
 
     private static BookResponse toDto(BookEntity book) {
-        return new BookResponse(book.isbn, book.title, book.description);
+        return new BookResponse(book.isbn(), book.title(), book.description());
     }
 
 }
