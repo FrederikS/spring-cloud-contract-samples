@@ -10,6 +10,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
+    </properties>
+
     <artifactId>consumer</artifactId>
     <name>producer-side-consumer</name>
 
@@ -49,7 +53,6 @@
                 <version>3.0.2</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <skip>true</skip>
                     <contractsMode>LOCAL</contractsMode>
                     <stubs>codes.fdk.sample.contract.pside:producer:${project.version}:stubs:8080</stubs>
                 </configuration>

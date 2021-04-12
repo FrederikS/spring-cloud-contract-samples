@@ -11,3 +11,12 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/books/{{isbn}}
+
+###
+
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "description": "description"
+}
